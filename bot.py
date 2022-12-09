@@ -8,6 +8,9 @@ import logging
 from telegram import Update
 from telegram.ext import Application, ContextTypes, MessageHandler, filters
 
+
+PORT = int(os.environ.get('PORT', 5000))
+
 # Enable logging
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -41,13 +44,16 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 def main() -> None:
     """Start the bot."""
     # Create the Application and pass it your bot's token.
-    application = Application.builder().token(os.environ.get("TELEGRAM_TOKEN")).build()
+    TOKEN = os.environ.get("TELEGRAM_TOKEN")
+    application = Application.builder().token(TOKEN).build()
 
     # application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
     application.add_handler(MessageHandler(filters.ATTACHMENT & ~filters.COMMAND, fix_gpx_file))
 
     # Run the bot until the user presses Ctrl-C
-    application.run_polling()
+    # application.run_polling()
+    application.run_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
+    application.bot.setWebhook('https://gpx-fixer.herokuapp.com/' + TOKEN)
 
 
 if __name__ == "__main__":
