@@ -47,14 +47,14 @@ def main() -> None:
     TOKEN = os.environ.get("TELEGRAM_TOKEN")
     application = Application.builder().token(TOKEN).build()
 
-    # application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
+
     application.add_handler(MessageHandler(filters.ATTACHMENT & ~filters.COMMAND, fix_gpx_file))
 
     # Run the bot until the user presses Ctrl-C
-    # application.run_polling()
-    application.run_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
-    application.bot.setWebhook('https://gpx-fixer.herokuapp.com/' + TOKEN)
-
+    application.run_polling()
+    # application.run_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
+    # application.bot.setWebhook('https://gpx-fixer.herokuapp.com/' + TOKEN)
 
 if __name__ == "__main__":
     main()
