@@ -57,4 +57,8 @@ def main() -> None:
     # application.bot.setWebhook('https://gpx-fixer.herokuapp.com/' + TOKEN)
 
 if __name__ == "__main__":
-    main()
+    while True:
+        try:
+            main()
+        except Exception as e:
+            print("ERROR:\n", e)
