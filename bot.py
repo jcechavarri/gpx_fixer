@@ -8,9 +8,6 @@ import logging
 from telegram import Update
 from telegram.ext import Application, ContextTypes, MessageHandler, filters
 
-
-PORT = int(os.environ.get('PORT', 5000))
-
 # Enable logging
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -52,9 +49,11 @@ def main() -> None:
     application.add_handler(MessageHandler(filters.ATTACHMENT & ~filters.COMMAND, fix_gpx_file))
 
     # Run the bot until the user presses Ctrl-C
-    application.run_polling()
-    # application.run_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
-    # application.bot.setWebhook('https://gpx-fixer.herokuapp.com/' + TOKEN)
+    PORT = int(os.environ.get('PORT', 5000))
+    # application.run_polling()
+    application.run_
+    application.run_webhook(listen="0.0.0.0", port=int(PORT), url_path=f'https://gpx-fixer.herokuapp.com/{TOKEN}')
+    # application.bot.setWebhook()
 
 if __name__ == "__main__":
     while True:
