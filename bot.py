@@ -51,7 +51,6 @@ def main() -> None:
     # Run the bot until the user presses Ctrl-C
     PORT = int(os.environ.get('PORT', 5000))
     # application.run_polling()
-    application.run_
     application.run_webhook(listen="0.0.0.0", port=int(PORT), url_path=f'https://gpx-fixer.herokuapp.com/{TOKEN}')
     # application.bot.setWebhook()
 
